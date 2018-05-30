@@ -1,6 +1,6 @@
 
 /**
- * 排序类
+ * 简单排序类：冒泡、选择、插入、快速
  * @author heym
  * @time 2018/05/26
  */
@@ -24,11 +24,58 @@ public class Sort {
 		}
 	}
 
-	public void printFun() {
+	/**
+	 * 打印
+	 * @param sortName
+	 */
+	public void printFun(String sortName) {
+		switch(sortName) {
+		case "bubbleSort":
+			System.out.println("冒泡排序完成：");
+			break;
+		case "selectionSort":
+			System.out.println("选择排序完成：");
+			break;
+		case "insertSort":
+			System.out.println("插入排序完成：");
+			break;
+		case "quickSort":
+			System.out.println("快速排序完成：");
+			break;
+		default:
+			System.out.println("未知排序：");
+			break;
+		}
 		for(int array:this.arrays) {
 			System.out.print(array+" ");
 		}
 		System.out.println();
+	}
+	
+	/**
+	 * 根据输入参数进行排序
+	 * @param sortName
+	 */
+	public void toSort(String sortName,int[] arrays) {
+		setArrays(arrays);
+		switch(sortName) {
+		case "bubbleSort":
+			bubbleSort();
+			break;
+		case "selectionSort":
+			selectionSort();
+			break;
+		case "insertSort":
+			insertSort();
+			break;
+		case "quickSort":
+			quickSort(0, arrays.length-1);
+			break;
+		default:
+			System.out.println("未知排序：");
+			break;
+		}
+		
 	}
 	
 	/**
@@ -53,7 +100,7 @@ public class Sort {
 				break;
 			}
 		}
-		System.out.println("冒泡排序完成：");
+		
 		return this.arrays;
 	}
 	
@@ -82,10 +129,68 @@ public class Sort {
 			this.arrays[index] = tmp;
 			
 		}
-		System.out.println("选择排序完成：");
+		
 		return this.arrays;
 	}
 	
 	
+	/**
+	 * 插入排序
+	 * @return arrays
+	 */
+	public int[] insertSort() {
+		for(int i = 1; i < this.arrays.length; i++) {
+			int tmp = this.arrays[i];
+			int j = i - 1;
+			while(j >= 0 && tmp < this.arrays[j]) {
+				this.arrays[j+1] = this.arrays[j];
+				j--;
+			}
+			this.arrays[j+1] = tmp;
+		}
+		
+		return this.arrays;
+	}
+	
+	
+	/**
+	 * 快速排序
+	 * @param L、R
+	 * @return arrays
+	 */
+	public int[] quickSort(int L, int R) {
+		
+		int i=L;
+		int j=R;
+		int base = this.arrays[(L+R)/2];
+		
+		//保证左边比中间值小、右边比中间值大
+		while(i <= j) {
+			
+			//找到左边需要交换的值的位置
+			while(base > this.arrays[i])
+				i++;
+			//找到右边需要交换的值的位置
+			while(base < this.arrays[j])
+				j--;
+			//交换
+			if(i <= j) {
+				int tmp = this.arrays[i];
+				this.arrays[i] = this.arrays[j];
+				this.arrays[j] = tmp;
+				i++;
+				j--;
+			}
+		}
+		//左边接着排，直到只有一个值
+		if(L < j)
+			quickSort(L, j);
+
+		//右边接着排，直到只有一个值
+		if(R > i)
+			quickSort(i, R);
+
+		return this.arrays;
+	}
 	
 }
