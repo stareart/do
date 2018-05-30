@@ -1,0 +1,33 @@
+1、官网下载https://dev.mysql.com/downloads/file/?id=469273
+
+2、下载的zip文件，解压后放到C:\\目录下
+
+3、在C:\mysql-5.7.18-winx64目录下新建一个配置文件（my.ini）用于配置字符集、端口等信息，该文件内容如下：
+[mysql]
+# 设置mysql客户端默认字符集
+default-character-set=utf8 
+[mysqld]
+#设置3306端口
+port = 3306 
+# 设置mysql的安装目录
+basedir=C:\mysql-5.7.18-winx64
+# 设置mysql数据库的数据的存放目录
+datadir=C:\mysql-5.7.18-winx64\data
+# 允许最大连接数
+max_connections=200
+# 服务端使用的字符集默认为8比特编码的latin1字符集
+character-set-server=utf8
+# 创建新表时将使用的默认存储引擎
+default-storage-engine=INNODB
+
+4、以管理员身份运行cmd，进入MySQL路径（C:\mysql-5.7.18-winx64\bin）下，运行mysqld install命令。
+
+5、安装成功后，启动服务：net start mysql（若出现启动失败的情况，执行mysqld --initialize 后再次启动）
+
+6、初次启动设置密码方法：
+6.1 关闭服务：net stop MySQL，用安全模式打开：mysqld --skip-grant-tables，这个时候，光标会一直闪。注意，不要动，新起另一个命令行窗口。
+6.2 重新进入bin目录下，登录： mysql -u root -p，密码为空,直接回车；
+6.3 没意外的话成功进入，输入：use mysql;
+6.4 修改密码：update user set authentication_string=password("123456") where user="root";
+
+7、退出：exit ,用新密码重新登录。

@@ -1,0 +1,269 @@
+
+4、第一条命令
+mysql> select version(),current_date();
++----------------+-----------------+
+| version()   | current_date() |
++----------------+-----------------+
+| 3.23.25a-debug | 2001-05-17   |
++----------------+-----------------+
+1 row in set (0.01 sec)
+
+此命令要求mysql服务器告诉你它的版本号和当前日期。尝试用不同大小写操作上述命令，看结果如何。
+结果说明mysql命令的大小写结果是一致的。
+练习如下操作：
+mysql>Select (20+5)*4;
+mysql>Select (20+5)*4,sin(pi()/3);
+mysql>Select (20+5)*4 AS Result,sin(pi()/3); (AS: 指定假名为Result)
+
+5、多行语句
+一条命令可以分成多行输入，直到出现分号“；”为止：
+mysql> select
+  -> USER()
+  -> ,
+  -> now()
+  ->;
++--------------------+-----------------------------+
+| USER()               | now()                           |
++--------------------+-----------------------------+
+| ODBC@localhost| 2001-05-17 22:59:15  |
++--------------------+-----------------------------+
+
+6、使用SHOW语句找出在服务器上当前存在什么数据库：
+
+mysql> SHOW DATABASES;
++----------+
+| Database |
++----------+
+| mysql  |
+| test   |
++----------+
+3 rows in set (0.00 sec)
+
+7、创建一个数据库wuyan1
+mysql> CREATE DATABASE wuyan1;
+注意不同操作系统对大小写的敏感。
+
+8、选择你所创建的数据库
+mysql> USE wuyan1
+Database changed
+此时你已经进入你刚才所建立的数据库wuyan1
+
+9、 创建一个数据库表
+首先看现在你的数据库中存在什么表：
+mysql> SHOW TABLES;
+Empty set (0.00 sec)
+说明刚才建立的数据库中还没有数据库表。下面来创建一个数据库表mytable:
+
+我们要建立一个你公司员工的生日表，表的内容包含员工姓名、性别、出生日期、出生城市。
+mysql> CREATE TABLE mytable (name VARCHAR(20), sex CHAR(1),
+-> birth DATE, birthaddr VARCHAR(20));
+Query OK, 0 rows affected (0.00 sec)
+
+由于name、birthadd的列值是变化的，因此选择VARCHAR，其长度不一定是20。可以选择从
+1到255的任何长度，如果以后需要改变它的字长，可以使用ALTER TABLE语句。）;
+性别只需一个字符就可以表示："m"或"f"，因此选用CHAR(1);
+birth列则使用DATE数据类型。
+
+创建了一个表后，我们可以看看刚才做的结果，用SHOW TABLES显示数据库中有哪些表：
+mysql> SHOW TABLES;
++---------------------+
+| Tables in menagerie |
++---------------------+
+| mytables      |
++---------------------+
+
+10、显示表的结构：
+mysql> DESCRIBE mytable;
++-------------+-------------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| name    | varchar(20) | YES |   | NULL  |    |
+| sex     | char(1)   | YES |   | NULL  |    |
+| birth    | date    | YES |   | NULL  |    |
+| deathaddr  | varchar(20) | YES |   | NULL  |    |
++-------------+-------------+------+-----+---------+-------+
+
+11、查询所有数据：
+mysql> select * from mytable;
++----------+------+------------+----------+
+| name   | sex | birth   | birthaddr |
++----------+------+------------+--------+
+| abccs  |f  | 1977-07-07 | china   |
+| mary   |f  | 1978-12-12 | usa    |
+| tom   |m  | 1970-09-02 | usa    |
++----------+------+------------+----------+
+3 row in set (0.00 sec)
+
+12、修正错误记录：
+假如tom的出生日期有错误，应该是1973－09－02，则可以用update语句来修正：
+mysql> update mytable set birth = "1973-09-02" where name = "tom";
+再用2中的语句看看是否已更正过来。
+
+13、选择特定行
+上面修改了tom的出生日期，我们可以选择tom这一行来看看是否已经有了变化：
+mysql> select * from mytable where name = "tom";
++--------+------+------------+------------+
+| name  |sex | birth   | birthaddr     |
++--------+------+------------+------------+
+| tom  |m  | 1973-09-02 | usa    |
++--------+------+------------+------------+
+1 row in set (0.06 sec)
+
+上面WHERE的参数指定了检索条件。我们还可以用组合条件来进行查询：
+mysql> SELECT * FROM mytable WHERE sex = "f" AND birthaddr = "china";
++--------+------+------------+------------+
+| name  |sex | birth   | birthaddr     |
++--------+------+------------+------------+
+| abccs |f  | 1977-07-07 | china   |
++--------+------+------------+------------+
+1 row in set (0.06 sec)
+
+14、 多表操作
+
+前面我们熟悉了数据库和数据库表的基本操作，现在我们再来看看如何操作多个表。
+
+在一个数据库中，可能存在多个表，这些表都是相互关联的。我们继续使用前面的例子。前面建立的表中包含了员工的一些基本信息，如姓名、性别、出生日期、出生地。我们再创建一个表，该表用于描述员工所发表的文章，内容包括作者姓名、文章标题、发表日期。
+
+1、查看第一个表mytable的内容：
+mysql> select * from mytable;
++----------+------+------------+-----------+
+| name   | sex | birth   | birthaddr |
++----------+------+------------+-----------+
+| abccs  |f   | 1977-07-07 | china   |
+| mary   |f   | 1978-12-12 | usa    |
+| tom   |m   | 1970-09-02 | usa    |
++----------+------+------------+-----------+
+
+2、创建第二个表title（包括作者、文章标题、发表日期）:
+mysql> create table title(writer varchar(20) not null,
+-> title varchar(40) not null,
+-> senddate date);
+
+向该表中填加记录，最后表的内容如下：
+mysql> select * from title;
++--------+-------+------------+
+| writer | title | senddate  |
++--------+-------+------------+
+| abccs | a1  | 2000-01-23 |
+| mary  | b1  | 1998-03-21 |
+| abccs | a2  | 2000-12-04 |
+| tom  | c1  | 1992-05-16 |
+| tom  | c2  | 1999-12-12 |
++--------+-------+------------+
+5 rows in set (0.00sec)
+
+3、多表查询
+现在我们有了两个表: mytable 和 title。利用这两个表我们可以进行组合查询：
+例如我们要查询作者abccs的姓名、性别、文章：
+mysql> SELECT name,sex,title FROM mytable,title
+-> WHERE name=writer AND name=‘abccs‘;
++-------+------+-------+
+| name | sex | title |
++-------+------+-------+
+| abccs | f  | a1  |
+| abccs | f  | a2  |
++-------+------+-------+
+
+上面例子中，由于作者姓名、性别、文章记录在两个不同表内，因此必须使用组合来进行查询。必须要指定一个表中的记录如何与其它表中的记录进行匹配。
+
+注意：如果第二个表title中的writer列也取名为name（与mytable表中的name列相同）而不是writer时，就必须用mytable.name和title.name表示，以示区别。
+
+再举一个例子，用于查询文章a2的作者、出生地和出生日期：
+mysql> select title,writer,birthaddr,birth from mytable,title
+-> where mytable.name=title.writer and title=‘a2‘;
++-------+--------+-----------+------------+
+| title | writer | birthaddr | birth   |
++-------+--------+-----------+------------+
+| a2  | abccs | china   | 1977-07-07 |
++-------+--------+-----------+------------+
+
+15、增加一列：
+如在前面例子中的mytable表中增加一列表示是否单身single:
+mysql> alter table mytable add column single char(1);
+
+16、修改记录
+将abccs的single记录修改为“y”：
+mysql> update mytable set single=‘y‘ where name=‘abccs‘;
+
+现在来看看发生了什么：
+mysql> select * from mytable;
++----------+------+------------+-----------+--------+
+| name   | sex | birth   | birthaddr | single |
++----------+------+------------+-----------+--------+
+| judy  |f   | 1977-07-07 | china   | y   |
+| mary   |f   | 1978-12-12 | usa    | NULL  |
+| tom   |m   | 1970-09-02 | japan    | NULL  |
++----------+------+------------+-----------+--------+
+
+17、增加记录
+前面已经讲过如何增加一条记录，为便于查看，重复与此：
+mysql> insert into mytable
+-> values (‘abc‘,‘f‘,‘1966-08-17‘,‘china‘,‘n‘);
+Query OK, 1 row affected (0.05 sec)
+查看一下：
+mysql> select * from mytable;
++----------+------+------------+-----------+--------+
+| name   | sex | birth   | birthaddr | single |
++----------+------+------------+-----------+--------+
+| judy  |f   | 1977-07-07 | china   | y   |
+| mary   |f   | 1978-12-12 | usa    | NULL  |
+| tom   |m   | 1970-09-02 | usa    | NULL  |
+| abc   |f   | 1966-08-17 | china   | n   |
++----------+------+------------+-----------+--------+
+
+18、删除记录
+用如下命令删除表中的一条记录：
+mysql> delete from mytable where name=‘abc‘;
+DELETE从表中删除满足由where给出的条件的一条记录。
+
+再显示一下结果：
+mysql> select * from mytable;
++----------+------+------------+-----------+--------+
+| name   | sex | birth   | birthaddr | single |
++----------+------+------------+-----------+--------+
+| abccs  |f   | 1977-07-07 | china   | y   |
+| mary   |f   | 1978-12-12 | usa    | NULL  |
+| tom   |m   | 1970-09-02 | usa    | NULL  |
++----------+------+------------+-----------+--------+
+
+19、删除表：
+mysql> drop table ****(表1的名字)，***表2的名字;
+可以删除一个或多个表，小心使用。
+
+20、数据库的删除：
+mysql> drop database 数据库名;
+小心使用。
+
+21、数据库的备份：
+退回到DOS：
+mysql> quit
+d:mysqlbin
+使用如下命令对数据库abccs进行备份：
+mysqldump --opt abccs>abccs.dbb
+abccs.dbb就是你的数据库abccs的备份文件。
+
+22、用批处理方式使用MySQL:
+
+首先建立一个批处理文件mytest.sql,内容如下：
+use abccs;
+select * from mytable;
+select name,sex from mytable where name=‘abccs‘;
+
+在DOS下运行如下命令：
+d:mysqlbin mysql < mytest.sql
+在屏幕上会显示执行结果。
+
+如果想看结果，而输出结果很多，则可以用这样的命令：
+mysql < mytest.sql | more
+
+我们还可以将结果输出到一个文件中：
+mysql < mytest.sql > mytest.out
+
+23. 请先用root登录到mysql,方法：
+ c:/mysql/bin/mysql -u root -p  
+24.创建一个用户
+ mysql> GRANT ALL PRIVILEGES ON javatest.* TO javauser@"%"  
+     ->   IDENTIFIED BY "javadude" ;
+实测，新建一个用户：
+mysql>create user wuyan
+      ->identified by ‘123’;----用户名是武艳，123是密码
