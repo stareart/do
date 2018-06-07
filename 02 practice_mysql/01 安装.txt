@@ -22,12 +22,12 @@ default-storage-engine=INNODB
 
 4、以管理员身份运行cmd，进入MySQL路径（C:\mysql-5.7.18-winx64\bin）下，运行mysqld install命令。
 
-5、安装成功后，启动服务：net start mysql（若出现启动失败的情况，执行mysqld --initialize 后再次启动）
+5、安装成功后，启动服务：net start mysql（若	出现启动失败的情况，执行mysqld --initialize 后再次启动,新版本初始化都有密码）
 
 6、初次启动设置密码方法：
 6.1 关闭服务：net stop MySQL，用安全模式打开：mysqld --skip-grant-tables，这个时候，光标会一直闪。注意，不要动，新起另一个命令行窗口。
 6.2 重新进入bin目录下，登录： mysql -u root -p，密码为空,直接回车；
 6.3 没意外的话成功进入，输入：use mysql;
-6.4 修改密码：update user set authentication_string=password("123456") where user="root";
+6.4 修改密码：update user set authentication_string=password("mm123") where user="root";
 
 7、退出：exit ,用新密码重新登录。

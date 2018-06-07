@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "org.spring.springboot.dao.VoiceDao">
+<!-- 	<resultMap id="VoiceMap" type="org.spring.springboot.domain.Voice">
+		<result column="ori_file_name" property="oriFileName" />
+		<result column="record_type" property="recordType" />
+		<result column="calling_number" property="callingNumber" />
+		<result column="called_number" property="calledNumber" />
+		<result column="call_start_tm" property="callStartTm" />
+		<result column="call_duration" property="callDuration" />
+		<result column="called_msrn" property="calledMSRN" />
+		<result column="incoming_tkgp16" property="incomingTkgp16" />
+		<result column="incoming_tkgp" property="incomingTkgp" />
+		<result column="outgoing_tkgp16" property="outgoingTkgp16" />
+		<result column="outgoing_tkgp" property="outgoingTkgp" />
+		<result column="cdr_seq" property="cdrSeq" />
+		<result column="cause_for_term" property="causeForTerm" />
+		<result column="msc_num" property="mscNum" />
+		<result column="call_reference" property="callReference" />
+		<result column="db_insr_tm" property="dbInsrTm" />
+		<result column="db_insr_dt" property="dbInsrDt" />
+	</resultMap> -->
+
+	<sql id="Base_Column_List">
+		ori_file_name,record_type,calling_number,called_number,call_start_tm,call_duration,called_msrn,incoming_tkgp16,incoming_tkgp,outgoing_tkgp16,outgoing_tkgp,cdr_seq,cause_for_term,msc_num,call_reference,db_insr_tm,db_insr_dt
+	</sql>
+	<insert id="insertVoiceCDR" >
+		insert into
+		CDR_VOICE_731
+		(<include refid="Base_Column_List" />)
+		values
+		(#{oriFileName},
+			#{recordType},
+			#{callingNumber},
+			#{calledNumber},
+			#{callStartTm},
+			#{callDuration},
+			#{calledMSRN},
+			#{incomingTkgp16},
+			#{incomingTkgp},
+			#{outgoingTkgp16},
+			#{outgoingTkgp},
+			#{cdrSeq},
+			#{causeForTerm},
+			#{mscNum},
+			#{callReference},
+			#{dbInsrTm},
+			#{dbInsrDt})
+	</insert>
+	
+</mapper>
