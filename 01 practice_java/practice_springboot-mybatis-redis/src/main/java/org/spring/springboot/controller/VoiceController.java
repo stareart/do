@@ -18,7 +18,7 @@ public class VoiceController {
 
 	@Autowired
 	private VoiceService voiceService;
-	
+	//get触发从redis向Mysql表 导入数据       http://localhost:8080/api/Vo_HW_BIN_731_20180119_000003_DECODE
 	@RequestMapping(value = "/api/{oriFileName}", method = RequestMethod.GET)
     public void inserVoiceCDR(@PathVariable("oriFileName") String oriFileName) {
          voiceService.insertVoiceCDR(oriFileName);

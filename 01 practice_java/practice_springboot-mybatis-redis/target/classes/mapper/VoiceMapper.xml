@@ -20,6 +20,47 @@
 		<result column="db_insr_tm" property="dbInsrTm" />
 		<result column="db_insr_dt" property="dbInsrDt" />
 	</resultMap> -->
+	
+	<!--mysql建表语句
+	 create table hymdb.CDR_VOICE_731
+	(
+	  ori_file_name     VARCHAR(50) not null,
+	  record_type       VARCHAR(50) not null,
+	  calling_number    VARCHAR(50) not null,
+	  called_number     VARCHAR(50) not null,
+	  call_start_tm     VARCHAR(50) not null,
+	  call_duration     VARCHAR(50) not null,
+	  called_msrn       VARCHAR(50) not null,
+	  incoming_tkgp16   VARCHAR(50) not null,
+	  incoming_tkgp     VARCHAR(50) not null,
+	  outgoing_tkgp16   VARCHAR(50) not null,
+	  outgoing_tkgp     VARCHAR(50) not null,
+	  cdr_seq           VARCHAR(50) not null,
+	  cause_for_term    VARCHAR(50) not null,
+	  msc_num           VARCHAR(50) not null,
+	  call_reference    VARCHAR(50),
+	  db_insr_tm        DATE not null,
+	  db_insr_dt        numeric(8) not null,
+	  init_carrier      numeric,
+	  ldfi_carrier      numeric,
+	  sttl_area_cd      VARCHAR(5),
+	  callingnum_area   VARCHAR(5),
+	  callingnum_type   numeric,
+	  callednum_area    VARCHAR(5),
+	  callednum_type    numeric,
+	  callingnum_access numeric,
+	  callingnum_long   numeric,
+	  callednum_access  numeric,
+	  callednum_long    numeric,
+	  sttl_unit         numeric,
+	  unit_fee          VARCHAR(50),
+	  sttl_fee          VARCHAR(50),
+	  sttl_rule         VARCHAR(100),
+	  tkgp_type         VARCHAR(5),
+	  sttl_in_carrier   numeric(1),
+	  sttl_out_carrier  numeric(1)
+	)
+	; -->
 
 	<sql id="Base_Column_List">
 		ori_file_name,record_type,calling_number,called_number,call_start_tm,call_duration,called_msrn,incoming_tkgp16,incoming_tkgp,outgoing_tkgp16,outgoing_tkgp,cdr_seq,cause_for_term,msc_num,call_reference,db_insr_tm,db_insr_dt
