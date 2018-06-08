@@ -50,7 +50,8 @@ public class CombinationImpl {
 	/**
 	 * 2、求平均值、次数(概率)
 	 * 计算组合的平均值，并求出平均值出现的次数，以及出现概率。 例如， 1,2,3， 平均值为 2， 出现1次， 出现概率 = 1 / 所有组合数目。
-	 * @param args
+	 * @param 组合列表
+	 * @return map<均值，次数>
 	 */
 	public static Map<Float,Integer> listStatics(List<List<Integer>> combinationList) {
 
