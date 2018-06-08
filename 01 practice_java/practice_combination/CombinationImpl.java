@@ -28,10 +28,11 @@ public class CombinationImpl {
 	 */
 	public static List<List<Integer>> setCombinationList() {
 		List<List<Integer>> combinationList = new ArrayList<List<Integer>>();
+		//只组合不排列
 		for(int i = min; i <= max ; i++) {
-			for(int j = min; j <= max ; j++) {
+			for(int j = i+1; j <= max ; j++) {
 				if(i==j)  continue;
-				for(int k = min; k <= max ; k++) {
+				for(int k = j+1; k <= max ; k++) {
 					if(k==i || k==j)  continue;
 					List<Integer> combination = new ArrayList<Integer>();
 					combination.add(i);
@@ -50,8 +51,7 @@ public class CombinationImpl {
 	/**
 	 * 2、求平均值、次数(概率)
 	 * 计算组合的平均值，并求出平均值出现的次数，以及出现概率。 例如， 1,2,3， 平均值为 2， 出现1次， 出现概率 = 1 / 所有组合数目。
-	 * @param 组合列表
-	 * @return map<均值，次数>
+	 * @param args
 	 */
 	public static Map<Float,Integer> listStatics(List<List<Integer>> combinationList) {
 
