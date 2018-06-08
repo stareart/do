@@ -28,7 +28,7 @@ public class CombinationImpl {
 	 */
 	public static List<List<Integer>> setCombinationList() {
 		List<List<Integer>> combinationList = new ArrayList<List<Integer>>();
-		//只组合不排列
+		//组合
 		for(int i = min; i <= max ; i++) {
 			for(int j = i+1; j <= max ; j++) {
 				if(i==j)  continue;
@@ -42,8 +42,8 @@ public class CombinationImpl {
 				}
 			}
 		}
-		/*for(int i =0;i<combinationList.size();i++) {
-			System.out.println(combinationList.get(i));
+/*		for(int i =0;i<combinationList.size();i++) {
+			System.out.println(combinationList.get(i)+""+combinationList.size());
 		}*/
 		return combinationList;
 	}
