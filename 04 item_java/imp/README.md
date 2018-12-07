@@ -61,3 +61,4 @@
 		)
 
 
+4、更改数据库配置/imp/src/main/resources/jdbc-mysql.properties、/imp/src/main/resources/jdbc-oracle.properties
