@@ -1,0 +1,101 @@
+-- --------------------------------------------------------
+-- 主机:                           127.0.0.1
+-- 服务器版本:                        5.7.18 - MySQL Community Server (GPL)
+-- 服务器操作系统:                      Win64
+-- HeidiSQL 版本:                  9.5.0.5282
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- 导出  表 scrapy.implog 结构
+CREATE TABLE IF NOT EXISTS `implog` (
+  `keyword` varchar(50) NOT NULL,
+  `url` varchar(500) NOT NULL,
+  `flag` int(11) NOT NULL,
+  `inputtime` datetime NOT NULL,
+  PRIMARY KEY (`url`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 数据导出被取消选择。
+-- 导出  表 scrapy.jobdata 结构
+CREATE TABLE IF NOT EXISTS `jobdata` (
+  `job` varchar(100) NOT NULL COMMENT '岗位',
+  `company` varchar(100) NOT NULL COMMENT '公司',
+  `welfare` varchar(100) DEFAULT NULL COMMENT '福利',
+  `education` varchar(100) DEFAULT NULL COMMENT '学历',
+  `numbers` varchar(100) DEFAULT NULL COMMENT '招聘人数',
+  `time` date DEFAULT NULL COMMENT '发布时间',
+  `experience` varchar(100) DEFAULT NULL COMMENT '工作经验要求',
+  `salary` varchar(100) DEFAULT NULL COMMENT '工资',
+  `province` varchar(20) DEFAULT NULL COMMENT '省',
+  `city` varchar(20) DEFAULT NULL COMMENT '市',
+  `area` varchar(20) DEFAULT NULL COMMENT '区',
+  `companytype` varchar(20) DEFAULT NULL COMMENT '公司类型',
+  `scale` varchar(20) DEFAULT NULL COMMENT '规模',
+  `industry` varchar(100) DEFAULT NULL COMMENT '行业',
+  `requirement` varchar(4000) DEFAULT NULL COMMENT '岗位要求',
+  `function` varchar(100) DEFAULT NULL COMMENT '职能',
+  `address` varchar(100) DEFAULT NULL COMMENT '地址',
+  `url` varchar(100) NOT NULL COMMENT '网址',
+  `inputtime` datetime DEFAULT NULL COMMENT '入库时间',
+  PRIMARY KEY (`job`,`url`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 数据导出被取消选择。
+-- 导出  表 scrapy.param_company 结构
+CREATE TABLE IF NOT EXISTS `param_company` (
+  `key` varchar(50) NOT NULL,
+  `value` int(2) NOT NULL,
+  UNIQUE KEY `key` (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='公司公参';
+
+-- 数据导出被取消选择。
+-- 导出  表 scrapy.param_education 结构
+CREATE TABLE IF NOT EXISTS `param_education` (
+  `key` varchar(50) NOT NULL,
+  `value` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='学历公参';
+
+-- 数据导出被取消选择。
+-- 导出  表 scrapy.param_function 结构
+CREATE TABLE IF NOT EXISTS `param_function` (
+  `key` varchar(50) NOT NULL,
+  `value` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='职能公参';
+
+-- 数据导出被取消选择。
+-- 导出  表 scrapy.param_industry 结构
+CREATE TABLE IF NOT EXISTS `param_industry` (
+  `key` varchar(50) NOT NULL,
+  `value` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='行业公参';
+
+-- 数据导出被取消选择。
+-- 导出  表 scrapy.param_numbers 结构
+CREATE TABLE IF NOT EXISTS `param_numbers` (
+  `key` varchar(50) NOT NULL,
+  `value` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='招聘人数公参';
+
+-- 数据导出被取消选择。
+-- 导出  表 scrapy.param_scale 结构
+CREATE TABLE IF NOT EXISTS `param_scale` (
+  `key` varchar(50) NOT NULL,
+  `value` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='规模公参';
+
+-- 数据导出被取消选择。
+-- 导出  表 scrapy.param_welfare 结构
+CREATE TABLE IF NOT EXISTS `param_welfare` (
+  `key` varchar(50) NOT NULL,
+  `value` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='福利公参';
+
+-- 数据导出被取消选择。
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
