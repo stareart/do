@@ -1,5 +1,5 @@
-data.fileName= (MP_ALL_20\\d{2}[01]{1}\\d{1}[0123]{1}\\d{1}_\\d{3}.txt)
-data.tableName =bps_mdo_mp_all
+data.fileName= (MP_20\\d{2}[01]{1}\\d{1}[0123]{1}\\d{1}_\\d{3}.txt)
+data.tableName =table_name
 data.head =0
 data.separator = |
 data.length =

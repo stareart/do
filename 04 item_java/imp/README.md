@@ -21,9 +21,9 @@
 	
 2、配置表属性/imp/src/main/resources/table/*.tbl，新增文件可直接增加配置文件
 	#文件名的正则表达式，只扫描匹配的文件
-	data.fileName= (MP_ALL_20\\d{2}[01]{1}\\d{1}[0123]{1}\\d{1}_\\d{3}.txt)
+	data.fileName= (MP_20\\d{2}[01]{1}\\d{1}[0123]{1}\\d{1}_\\d{3}.txt)
 	#数据库中的表名
-	data.tableName =bps_mdo_mp_all
+	data.tableName =table_name
 	#是否有头尾文件，1：有 0：无
 	data.head =0
 	#分隔符分割，与data.length二选一
@@ -47,13 +47,13 @@
 			`INPUT_DATE` DATETIME NULL DEFAULT NULL,
 			`MODIFY_DATE` DATETIME NULL DEFAULT NULL
 		)
-	（2）数据表（例，样例数据见/imp/data/MP_ALL_20160101_001.txt）：
-		CREATE TABLE `bps_mm_ippcode_all` (
-			`IPP_CODE` VARCHAR(6) NOT NULL,
-			`AP_NAME` VARCHAR(200) NULL DEFAULT NULL,
+	（2）数据表（例，样例数据见/imp/data/MP_20160101_001.txt）：
+		CREATE TABLE `table_name` (
+			`CODE` VARCHAR(6) NOT NULL,
+			`NAME` VARCHAR(200) NULL DEFAULT NULL,
 			`IP_CODE` VARCHAR(6) NOT NULL,
 			`IP_NAME` VARCHAR(200) NOT NULL,
-			`IP_DIVIDE` VARCHAR(3) NOT NULL,
+			`DIVIDE` VARCHAR(3) NOT NULL,
 			`EFFECTIVE_DATE` DATETIME NULL DEFAULT NULL,
 			`EXPIRE_DATE` DATETIME NULL DEFAULT NULL,
 			`FILE_NAME` VARCHAR(50) NOT NULL,        --data.table.insertFlag = 1时添加
